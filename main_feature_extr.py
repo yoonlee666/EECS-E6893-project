@@ -1,3 +1,6 @@
+## This python file is for doing main features extraction from raw dataset.
+## Output is a plot of one attribute
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pylab as pl
@@ -17,14 +20,17 @@ for i in range(1, 3169):
     aaa=f.split(',')
     length = len(aaa)
     if aaa[length-1]=='"male"':
-        mean_freq_male.extend([aaa[0]])   #attribute 0
+        mean_freq_male.extend([aaa[11]])   #can change attribute here
     else:
-        mean_freq_female.extend([aaa[0]])   #attribute 0
+        mean_freq_female.extend([aaa[11]])   #can change attribute here
     file.close()
 #y_male=[0]*len(mean_freq_male)
 y_male=range(1,len(mean_freq_male)+1,1)
 #y_female=[0]*len(mean_freq_female)
-y_female=range(1,len(mean_freq_male)+1,1)
-pl.plot(mean_freq_male, y_male, 'bo')
-pl.plot(mean_freq_female, y_female, 'ro')
+y_female=range(1,len(mean_freq_female)+1,1)
+
+pl.plot(mean_freq_male, y_male, 'bo', label='male')
+pl.plot(mean_freq_female, y_female, 'ro', label='female')
+pl.legend(loc='upper right')
+pl.title('average of fundamental frequency measured across acoustic signal', fontsize=14)
 pl.show()

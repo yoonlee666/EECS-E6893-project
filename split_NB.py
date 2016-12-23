@@ -22,16 +22,16 @@ for i in range(1, 3169):
     if (aaa[length-1]=='"male"') :
         f=''
         for j in range(length-1):
-            f+='feature'+str(j)+', '+aaa[j]+','
-        f+='feature'+str(length-1)+', '+'"male"'   #1==male
+            f+=aaa[j]+','
+        f+='male'   #1==male
         file=open(os.path.join(path1, filename),'w')
         file.write(f)
         file.close()
     else:
         f=''
         for j in range(length-1):
-            f+='feature'+str(j)+', '+aaa[j]+','
-        f+='feature'+str(length-1)+', '+'"female"'   #0==female
+            f+=aaa[j]+','
+        f+='female'   #0==female
         file=open(os.path.join(path2, filename),'w')
         file.write(f)
         file.close()

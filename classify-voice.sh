@@ -1,5 +1,5 @@
 #!/bin/bash
-# Run Naive Bayes using Mahout
+# Run Naive Bayes in Mahout
 if [ "$1" = "--help" ] || [ "$1" = "--?" ]; then
   echo "This script runs Bayes classifiers over voice.csv in project Genger Recognition by Voice..."
   exit
@@ -49,10 +49,11 @@ if  ( [ "x$alg" == "xnaivebayes-MapReduce" ] ); then
     echo "Creating sequence files from voice data"
     $MAHOUT_HOME/bin/mahout seqdirectory -i ${WORK_DIR}/voice-all -o ${WORK_DIR}/voice-seq -ow
     echo "Converting sequence files to vectors"
-    $MAHOUT_HOME/bin/mahout seq2sparse -i ${WORK_DIR}/voice-seq -o ${WORK_DIR}/voice-vectors  -ow -lnorm -seq  -wt tfidf
+#    $MAHOUT_HOME/bin/mahout seq2sparse -i ${WORK_DIR}/voice-seq -o ${WORK_DIR}/voice-vectors -lnorm -nv  -wt tfidf
+    $MAHOUT_HOME/bin/mahout seq2sparse -i ${WORK_DIR}/voice-seq -o ${WORK_DIR}/voice-vectors -lnorm -nv
     echo "Creating training and holdout set with a random 80-20 split of the generated vector dataset"
-    $MAHOUT_HOME/bin/mahout split -i ${WORK_DIR}/voice-vectors/tfidf-vectors --trainingOutput ${WORK_DIR}/voice-train-vectors \
-    --testOutput ${WORK_DIR}/voice-test-vectors --randomSelectionPct 10 --overwrite --sequenceFiles -xm sequential
+    $MAHOUT_HOME/bin/mahout split -i ${WORK_DIR}/voice-vectors/tf-vectors --trainingOutput ${WORK_DIR}/voice-train-vectors \
+    --testOutput ${WORK_DIR}/voice-test-vectors --randomSelectionPct 40 --overwrite --sequenceFiles -xm sequential
     echo "Training Naive Bayes model"
     $MAHOUT_HOME/bin/mahout trainnb -i ${WORK_DIR}/voice-train-vectors -o ${WORK_DIR}/model -li ${WORK_DIR}/labelindex -ow $c
     echo "Self testing on training set"

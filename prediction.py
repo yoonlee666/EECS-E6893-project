@@ -7,7 +7,7 @@ import pickle
 
 all_data = []
 all_label = []
-with open("/usr/local/Cellar/hadoop/2.7.3/mahout/mahout_voice/voice_ext.csv", 'rb') as file:
+with open("/Users/yoonlee/Gender-Recognition-by-Voice/voice_ext.csv", 'rb') as file:
     row = 0
     for line in file.readlines():
         row += 1
@@ -24,7 +24,7 @@ pickle.dump(gbclf, open( "/Users/yoonlee/Desktop/model.pkl", "wb" ) )
 gbclf = pickle.load(open('/Users/yoonlee/Desktop/model.pkl', 'rb'))
 gbclf.fit(all_data, all_label)
 test_data = []
-with open("/usr/local/Cellar/hadoop/2.7.3/mahout/mahout_voice/test_data.csv", 'rb') as file:
+with open("/Users/yoonlee/Gender-Recognition-by-Voice/test_data.csv", 'rb') as file:
     row = 0
     for line in file.readlines():
         row += 1
